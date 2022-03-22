@@ -1,40 +1,27 @@
 #include <cassert>
 #include <iostream>
-#include <map>
-#include <string>
-#include <set>
+#include <vector>
+#include <algorithm>
 
 int main()
 {
-	std::map <std::set<std::string>, int> buses;
-	int counter = 1;
 	int n;
 	std::cin >> n;
+	int input;
+	std::vector<int> nums;
 
-	for (auto i = 0; i < n; i++)
+	while (std::cin >> input)
 	{
-		int numStops;
-		std::cin >> numStops;
-		std::string stop;
-		std::set<std::string> stops;
+		nums.push_back(input);
+	}
 
-		for (auto j = 0; j < numStops; j++)
-		{
-			std::cin >> stop;
-			stops.insert(stop);
-		}
+	std::sort(nums.begin(), nums.end(), [](int i, int j) {
+		return std::abs(i) < std::abs(j);
+	});
 
-		auto it = buses.find(stops);
-		if (it == buses.end())
-		{
-			buses.insert({ stops, counter });
-			std::cout << "New bus " << counter << std::endl;
-			counter++;
-		}
-		else
-		{
-			std::cout << "Already exists for " << it->second << std::endl;
-		}
+	for (auto elem : nums)
+	{
+		std::cout << elem << std::endl;
 	}
 
 	return 0;
